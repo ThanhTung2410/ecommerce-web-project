@@ -1,0 +1,14 @@
+.sidebar {
+	background-color: #4a7cf0;
+}
+
+.sidebar-item {
+	padding: 10px;
+}
+
+.sidebar-link {
+	text-decoration: none;
+	color: white;
+
+	display: block;
+}

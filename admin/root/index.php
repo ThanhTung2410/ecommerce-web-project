@@ -17,7 +17,7 @@
 </head>
 
 <body>
-	<div class="container-fluid" style="height: 1000px;">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="col-2 p-0">
 				<?php require_once "../sidebar.php" ?>

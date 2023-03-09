@@ -5,7 +5,7 @@
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Manufacturer Management</title>
+	<title>Document</title>
 	<!-- Bootstrap -->
 	<?php require_once "../../bootstrap.php" ?>
 	<!-- JQuery -->
@@ -23,7 +23,7 @@
 				<?php require_once "../sidebar.php" ?>
 			</div>
 			<div class="col-10">
-				<h3>Manufacturer Management page</h3>
+				<h3>Homepage</h3>
 			</div>
 		</div>
 	</div>

@@ -9,11 +9,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Product Management</title>
 	<!-- Bootstrap -->
-	<?php require_once "../../bootstrap.php" ?>
+	<?php require_once "../../bootstrap.html" ?>
 	<!-- JQuery -->
-	<?php require_once "../../jquery.php" ?>
+	<?php require_once "../../jquery.html" ?>
 	<!-- font-awesome -->
-	<?php require_once "../../font_awesome.php" ?>
+	<?php require_once "../../font_awesome.html" ?>
 	<!-- Custom -->
 	<link rel="stylesheet" href="../../css/style_sidebar.css">
 </head>
@@ -42,10 +42,10 @@ $row = $result->fetch_assoc();
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-2 p-0">
-				<?php require_once "../sidebar.php" ?>
+				<?php require_once "../sidebar.html" ?>
 			</div>
 			<div class="col-10">
-				<?php require_once "../account_box.php" ?>
+				<?php require_once "../account_box.html" ?>
 				<div class="w-25 mt-3">
 					<h3>Update Product</h3>
 					<form method="post" action="update.php" enctype="multipart/form-data">

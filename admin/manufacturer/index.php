@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,16 +30,7 @@ $result = $conn->query($sql);
 				<?php require_once "../sidebar.php" ?>
 			</div>
 			<div class="col-10">
-				<div class="d-flex justify-content-between align-items-center bg-white mt-3">
-					<p class="ms-4 mb-0">Website</p>
-					<div class="d-flex align-items-center me-4 my-1">
-						<img class="rounded-circle me-2" src="../../img/avatar/sample.jpg" alt="Avatar" style="height: 50px;">
-						<div>
-							<h6 class="m-0">John Doe</h6>
-							<p class="m-0 fs-6">Admin</p>
-						</div>
-					</div>
-				</div>
+				<?php require_once "../account_box.php" ?>
 
 
 				<div class="d-flex justify-content-between mt-3">
@@ -51,6 +43,7 @@ $result = $conn->query($sql);
 						<th>ID</th>
 						<th>Name</th>
 						<th>Logo</th>
+						<th>Action</th>
 					</tr>
 					<?php foreach ($result as $row) { ?>
 						<tr>
@@ -59,13 +52,36 @@ $result = $conn->query($sql);
 							<td>
 								<img height="100" src="<?= $row['imgPath'] ?>" alt="">
 							</td>
+							<td>
+								<a href="form_update.php?id=<?= $row['id'] ?>" style="text-decoration: none;"><button class="btn btn-sm btn-primary">
+										Update
+									</button>
+								</a>
+								<a href="delete.php?id=<?= $row['id'] ?>" style="text-decoration: none;">
+									<button class="btn btn-sm btn-danger">Delete</button>
+								</a>
+							</td>
 						</tr>
 					<?php } ?>
 				</table>
+				<?php
+					if (isset($_SESSION['errorMsg'])) { ?>
+						<div class="alert alert-danger mt-3">
+							<a href="#" class="close"></a>
+							<strong>Error!</strong> <?= $_SESSION['errorMsg'] ?>
+						</div>
+				</div>
+			<?php unset($_SESSION['errorMsg']);
+					} ?>
 			</div>
 		</div>
 	</div>
 	<?php $conn->close(); ?>
+	<script>
+		setTimeout(function() {
+			$('.alert-danger').alert('close');
+		}, 2000)
+	</script>
 </body>
 
 </html>

@@ -35,7 +35,7 @@ $result = $conn->query($sql);
 
 				<div class="d-flex justify-content-between mt-3">
 					<h4>Manage Manufacturer</h4>
-					<a class="btn btn-primary" href="form_insert.php">Add Product</a>
+					<a class="btn btn-primary" href="form_insert.php">Add Manufacturer</a>
 				</div>
 
 				<table class="w-100 mt-3 table table-striped ">

@@ -19,7 +19,19 @@
 
 <?php
 require_once "../../connect.php";
-$sql = "SELECT product.*, manufacturer.name as manufacturer_name FROM product INNER JOIN manufacturer on product.manufacturer_id = manufacturer.id";
+// Pagination
+$numberOfProductEachPage = 3;
+$sql = "SELECT * FROM product";
+$numberOfProduct = $conn->query($sql)->num_rows;
+$numberOfPage = ceil($numberOfProduct / $numberOfProductEachPage);
+$currentPage = 1;
+if (isset($_GET['currentPage'])) {
+	$currentPage = $_GET['currentPage'];
+}
+
+$numberOfOffsetProduct = ($currentPage - 1) * $numberOfProductEachPage;
+
+$sql = "SELECT product.*, manufacturer.name as manufacturer_name FROM product INNER JOIN manufacturer on product.manufacturer_id = manufacturer.id LIMIT $numberOfProductEachPage OFFSET $numberOfOffsetProduct";
 $result = $conn->query($sql);
 ?>
 
@@ -56,7 +68,7 @@ $result = $conn->query($sql);
 								<img height="100" src="<?= $row['imgPath'] ?>" alt="">
 							</td>
 							<td>
-							<a href="view_detail?id=<?= $row['id'] ?>" style="text-decoration: none;"><button class="btn btn-sm btn-success">
+								<a href="view_detail?id=<?= $row['id'] ?>" style="text-decoration: none;"><button class="btn btn-sm btn-success">
 										View
 									</button>
 								</a>
@@ -71,17 +83,40 @@ $result = $conn->query($sql);
 						</tr>
 					<?php } ?>
 				</table>
+				<nav aria-label="Page navigation example">
+					<ul class="pagination">
+						<li class="page-item">
+							<a class="page-link <?php if ($currentPage == 1) {
+													echo "disabled";
+												} ?> " href="#" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+								<span class="sr-only">Previous</span>
+							</a>
+						</li>
+						<?php for ($i = 1; $i <= $numberOfPage; $i++) { ?>
+							<li class="page-item"><a class="page-link <?php if ($i == $currentPage) {
+																			echo "active";
+																		} ?>" href="index.php?currentPage=<?= $i ?>"><?= $i ?></a></li>
+						<?php } ?>
+						<li class="page-item">
+							<a class="page-link" href="#" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+								<span class="sr-only">Next</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
 				<?php
-					if (isset($_SESSION['errorMsg'])) { ?>
-						<div class="alert alert-danger mt-3">
-							<a href="#" class="close"></a>
-							<strong>Error!</strong> <?= $_SESSION['errorMsg'] ?>
-						</div>
-				</div>
-			<?php unset($_SESSION['errorMsg']);
-					} ?>
+				if (isset($_SESSION['errorMsg'])) { ?>
+					<div class="alert alert-danger mt-3">
+						<a href="#" class="close"></a>
+						<strong>Error!</strong> <?= $_SESSION['errorMsg'] ?>
+					</div>
 			</div>
+		<?php unset($_SESSION['errorMsg']);
+				} ?>
 		</div>
+	</div>
 	</div>
 	<?php $conn->close(); ?>
 	<script>

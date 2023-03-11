@@ -19,9 +19,15 @@
 
 <?php
 require_once "../../connect.php";
+// Search
+$searchContent = "";
+if (isset($_GET['searchContent'])) {
+	$searchContent = $_GET['searchContent'];
+}
+
 // Pagination
 $numberOfManufacturerEachPage = 3;
-$sql = "SELECT * FROM Manufacturer";
+$sql = "SELECT * FROM Manufacturer WHERE name like '%$searchContent%'";
 $numberOfManufacturer = $conn->query($sql)->num_rows;
 $numberOfPage = ceil($numberOfManufacturer / $numberOfManufacturerEachPage);
 $currentPage = 1;
@@ -31,7 +37,7 @@ if (isset($_GET['currentPage'])) {
 
 $numberOfOffsetManufacturer = ($currentPage - 1) * $numberOfManufacturerEachPage;
 
-$sql = "SELECT * FROM manufacturer LIMIT $numberOfManufacturerEachPage OFFSET $numberOfOffsetManufacturer";
+$sql = "SELECT * FROM manufacturer WHERE name like '%$searchContent%' LIMIT $numberOfManufacturerEachPage OFFSET $numberOfOffsetManufacturer";
 $result = $conn->query($sql);
 ?>
 
@@ -47,6 +53,12 @@ $result = $conn->query($sql);
 
 				<div class="d-flex justify-content-between mt-3">
 					<h4>Manage Manufacturer</h4>
+					<form action="" method="">
+						<div class="d-flex">
+							<input placeholder="Search by name of product" class="form-control" type="search" name="searchContent" id="" value="<?= $searchContent ?>">
+							<button class="btn"><i class="fas fa-search fs-4"></i></button>
+						</div>
+					</form>
 					<a class="btn btn-primary" href="form_insert.php">Add Manufacturer</a>
 				</div>
 
@@ -89,7 +101,7 @@ $result = $conn->query($sql);
 						<?php for ($i = 1; $i <= $numberOfPage; $i++) { ?>
 							<li class="page-item"><a class="page-link <?php if ($i == $currentPage) {
 																			echo "active";
-																		} ?>" href="index.php?currentPage=<?= $i ?>"><?= $i ?></a></li>
+																		} ?>" href="index.php?currentPage=<?= $i ?>&searchContent=<?= $searchContent ?>"><?= $i ?></a></li>
 						<?php } ?>
 						<li class="page-item">
 							<a class="page-link" href="#" aria-label="Next">

@@ -19,9 +19,15 @@
 
 <?php
 require_once "../../connect.php";
+// Search
+$searchContent = "";
+if (isset($_GET['searchContent'])) {
+	$searchContent = $_GET['searchContent'];
+}
+
 // Pagination
 $numberOfProductEachPage = 3;
-$sql = "SELECT * FROM product";
+$sql = "SELECT * FROM product WHERE name like '%$searchContent%'";
 $numberOfProduct = $conn->query($sql)->num_rows;
 $numberOfPage = ceil($numberOfProduct / $numberOfProductEachPage);
 $currentPage = 1;
@@ -31,7 +37,7 @@ if (isset($_GET['currentPage'])) {
 
 $numberOfOffsetProduct = ($currentPage - 1) * $numberOfProductEachPage;
 
-$sql = "SELECT product.*, manufacturer.name as manufacturer_name FROM product INNER JOIN manufacturer on product.manufacturer_id = manufacturer.id LIMIT $numberOfProductEachPage OFFSET $numberOfOffsetProduct";
+$sql = "SELECT product.*, manufacturer.name as manufacturer_name FROM product INNER JOIN manufacturer on product.manufacturer_id = manufacturer.id WHERE product.name like '%$searchContent%' LIMIT $numberOfProductEachPage OFFSET $numberOfOffsetProduct";
 $result = $conn->query($sql);
 ?>
 
@@ -46,6 +52,12 @@ $result = $conn->query($sql);
 
 				<div class="d-flex justify-content-between mt-3">
 					<h4>Manage Product</h4>
+					<form action="" method="">
+						<div class="d-flex">
+							<input placeholder="Search by name of product" class="form-control" type="search" name="searchContent" id="" value="<?= $searchContent ?>">
+							<button class="btn"><i class="fas fa-search fs-4"></i></button>
+						</div>
+					</form>
 					<a class="btn btn-primary" href="form_insert.php">Add Product</a>
 				</div>
 
@@ -96,7 +108,7 @@ $result = $conn->query($sql);
 						<?php for ($i = 1; $i <= $numberOfPage; $i++) { ?>
 							<li class="page-item"><a class="page-link <?php if ($i == $currentPage) {
 																			echo "active";
-																		} ?>" href="index.php?currentPage=<?= $i ?>"><?= $i ?></a></li>
+																		} ?>" href="index.php?currentPage=<?= $i ?>&searchContent=<?= $searchContent ?>"><?= $i ?></a></li>
 						<?php } ?>
 						<li class="page-item">
 							<a class="page-link" href="#" aria-label="Next">

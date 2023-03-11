@@ -8,10 +8,10 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Product Management</title>
-	<!-- Bootstrap -->
-	<?php require_once "../../bootstrap.html" ?>
 	<!-- JQuery -->
 	<?php require_once "../../jquery.html" ?>
+	<!-- Bootstrap -->
+	<?php require_once "../../bootstrap5.html" ?>
 	<!-- font-awesome -->
 	<?php require_once "../../font_awesome.html" ?>
 	<!-- Custom -->

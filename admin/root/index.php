@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Document</title>
 	<!-- Bootstrap -->
-	<?php require_once "../../bootstrap.html" ?>
+	<?php require_once "../../bootstrap5.html" ?>
 	<!-- JQuery -->
 	<?php require_once "../../jquery.html" ?>
 	<!-- font-awesome -->

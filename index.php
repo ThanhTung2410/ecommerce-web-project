@@ -232,6 +232,22 @@ $result = $conn->query($sql);
 			<?php } ?>
 		</div>
 	</div>
+
+	<!-- Footer -->
+	<footer class="bg-dark text-center text-white mt-3">
+
+		<div class="container">
+
+		</div>
+
+		<!-- Copyright -->
+		<div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.2);">
+			© 2023 Copyright:
+			<a class="text-white" href="">Shopee</a>
+		</div>
+		<!-- Copyright -->
+	</footer>
+	<!-- End Footer -->
 </body>
 
 </html>

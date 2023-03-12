@@ -15,7 +15,15 @@
 	<?php require_once "font_awesome.html" ?>
 	<!--  -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<!-- Custom -->
+	<link rel="stylesheet" href="css/style_card.css">
 </head>
+
+<?php
+require_once "connect.php";
+$sql = "SELECT * FROM product";
+$result = $conn->query($sql);
+?>
 
 <body>
 	<!-- Navbar -->
@@ -208,6 +216,20 @@
 				<img class="d-block w-100 h-50 py-1" src="img/banner/vn-50009109-a720785101836d775b0d73c067466489_xxhdpi.jpg" alt="Third slide">
 				<img class="d-block w-100 h-50 pt-1" src="img/banner/vn-50009109-a720785101836d775b0d73c067466489_xxhdpi.jpg" alt="Third slide">
 			</div>
+		</div>
+		<div class="row">
+			<?php foreach ($result as $record) { ?>
+				<div class="col-2 mt-4">
+					<div class="card h-100">
+						<img class="card-img-top" src="<?= substr($record['imgPath'], 6); ?>" alt="<?= $record['name'] ?>" />
+						<div class="card-body">
+							<h5 class="card-title text-primary text-truncate"><?= $record['name'] ?></h5>
+							<h6 class="card-text">$<?= $record['price'] ?></h6>
+							<button class="btn btn-primary">Add to cart</button>
+						</div>
+					</div>
+				</div>
+			<?php } ?>
 		</div>
 	</div>
 </body>

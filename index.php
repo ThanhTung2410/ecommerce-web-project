@@ -97,18 +97,18 @@ $result = $conn->query($sql);
 
 									<!-- Modal body -->
 									<div class="modal-body">
-										<form action="" method="post">
+										<form action="login.php" method="post">
 											<div class="form-group">
 												<label for="email">Email:</label>
-												<input type="email" class="form-control" placeholder="Enter email" id="email" required>
+												<input type="email" class="form-control" placeholder="Enter email" id="email" required name="email">
 											</div>
 											<div class="form-group">
 												<label for="pwd">Password:</label>
-												<input type="password" class="form-control" placeholder="Enter password" id="pwd" required>
+												<input type="password" class="form-control" placeholder="Enter password" id="pwd" required name="password">
 											</div>
 											<div class="form-group custom-control custom-checkbox">
-												<input type="checkbox" class="custom-control-input" id="customCheck" name="example1">
-												<label class="custom-control-label" for="customCheck">Remember
+												<input type="checkbox" class="custom-control-input" id="remember_me" name="remember_me">
+												<label class="custom-control-label" for="remember_me">Remember
 													me</label>
 											</div>
 											<button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
@@ -137,24 +137,24 @@ $result = $conn->query($sql);
 
 									<!-- Modal body -->
 									<div class="modal-body">
-										<form action="" method="post" class="needs-validation" novalidate>
+										<form action="signUp.php" method="post" class="needs-validation" novalidate>
 											<div class="form-group">
-												<label for="username">Username:</label>
-												<input type="text" class="form-control" placeholder="Enter username" id="username" required>
+												<label for="name">Name:</label>
+												<input type="text" class="form-control" placeholder="Enter name" id="name" required name="name">
 												<div class="invalid-feedback">
-													Please enter your username
+													Please enter your name
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="email">Email:</label>
-												<input type="email" class="form-control" placeholder="Enter email" id="email" required>
+												<input type="email" class="form-control" placeholder="Enter email" id="email" required name="email">
 												<div class="invalid-feedback">
 													Please enter your email
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="pwd">Password:</label>
-												<input type="password" class="form-control" placeholder="Enter password" id="pwd" required>
+												<input type="password" class="form-control" placeholder="Enter password" id="pwd" required name="password">
 												<div class="invalid-feedback">
 													Please enter your password
 												</div>
@@ -165,7 +165,7 @@ $result = $conn->query($sql);
 
 									<!-- Modal footer -->
 									<div class="modal-footer" style="justify-content: center;">
-										Are you a member?<a href="#">Sign in</a>
+										Are you a member?<a href="#">Login</a>
 									</div>
 								</div>
 							</div>
@@ -248,6 +248,35 @@ $result = $conn->query($sql);
 		<!-- Copyright -->
 	</footer>
 	<!-- End Footer -->
+
+	<script>
+		$(document).ready(function() {
+			$('#loginModal .modal-footer a').click(function(event) {
+				$('#loginModal').modal('hide')
+				$('#signUpModal').modal('show');
+			})
+
+			$('#signUpModal .modal-footer a').click(function(event) {
+				$('#loginModal').modal('show')
+				$('#signUpModal').modal('hide');
+			})
+
+
+			// Get the forms we want to add validation styles to
+			var forms = document.getElementsByClassName('needs-validation');
+			// Loop over them and prevent submission
+			var validation = Array.prototype.filter.call(forms, function(form) {
+				form.addEventListener('submit', function(event) {
+					if (form.checkValidity() === false) {
+						event.preventDefault();
+						event.stopPropagation();
+					}
+					form.classList.add('was-validated');
+				}, false);
+			});
+
+		})
+	</script>
 </body>
 
 </html>

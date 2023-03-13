@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,121 +59,122 @@ $result = $conn->query($sql);
 
 					<div class="navbar-nav ml-2">
 						<!-- When user logins -->
-
-						<!-- <a href="#" class="nav-item nav-link notifications"><i class="fa fa-bell-o"></i><span
-								class="badge">1</span></a>
-						<div class="nav-item dropdown">
-							<a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action"><img src=""
-									class="avatar" alt="Avatar"><b class="caret"></b></a>
-							<div class="dropdown-menu">
-								<a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
-								<a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> Settings</a>
-								<div class="dropdown-divider"></div>
-								<a href="#" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Logout</a>
+						<?php if (isset($_SESSION['id'])) { ?>
+							<div class="nav-item dropdown">
+								<a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action"><img class="rounded-circle" style="height: 50px;" src="<?php if (is_null($_SESSION['avatar'])) {
+																																											echo "img/avatar/sample.jpg";
+																																										} else {
+																																											echo $_SESSION['avatar'];
+																																										} ?>" class="avatar" alt="Avatar"><b class="caret"></b></a>
+								<div class="dropdown-menu">
+									<a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
+									<a href="#" class="dropdown-item"><i class="fa fa-sliders mr-1"></i> Settings</a>
+									<div class="dropdown-divider"></div>
+									<a href="logout.php" class="dropdown-item d-flex"><i class="material-icons mr-1">&#xE8AC;</i> Logout</a>
+								</div>
 							</div>
-						</div> -->
-
-						<!-- End When user logins  -->
-
-						<!-- When user doesn't login -->
-						<div class="nav-item dropdown">
-							<a href="#" class="nav-link dropdown-toggle text-uppercase" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i></a>
-							<div class="dropdown-menu d-inline-bloack">
-								<a href="#" class="dropdown-item nav-item" id="login-btn" data-target="#loginModal" data-toggle="modal">Đăng nhập</a>
-								<a href="#" class="dropdown-item nav-item" id="sign-up-btn" data-target="#signUpModal" data-toggle="modal">Đăng ký</a>
+							<!-- End When user logins  -->
+						<?php } else { ?>
+							<!-- When user doesn't login -->
+							<div class="nav-item dropdown">
+								<a href="#" class="nav-link dropdown-toggle text-uppercase" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i></a>
+								<div class="dropdown-menu d-inline-bloack">
+									<a href="#" class="dropdown-item nav-item" id="login-btn" data-target="#loginModal" data-toggle="modal">Đăng nhập</a>
+									<a href="#" class="dropdown-item nav-item" id="sign-up-btn" data-target="#signUpModal" data-toggle="modal">Đăng ký</a>
+								</div>
 							</div>
-						</div>
 
 
 
-						<!-- Login modal -->
-						<div class="modal fade" id="loginModal">
-							<div class="modal-dialog ">
-								<div class="modal-content">
+							<!-- Login modal -->
+							<div class="modal fade" id="loginModal">
+								<div class="modal-dialog ">
+									<div class="modal-content">
 
-									<!-- Modal Header -->
-									<div class="modal-header">
-										<h4 class="modal-title">Đăng nhập</h4>
-										<button type="button" class="close" data-dismiss="modal">&times;</button>
-									</div>
+										<!-- Modal Header -->
+										<div class="modal-header">
+											<h4 class="modal-title">Đăng nhập</h4>
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+										</div>
 
-									<!-- Modal body -->
-									<div class="modal-body">
-										<form action="login.php" method="post">
-											<div class="form-group">
-												<label for="email">Email:</label>
-												<input type="email" class="form-control" placeholder="Enter email" id="email" required name="email">
-											</div>
-											<div class="form-group">
-												<label for="pwd">Password:</label>
-												<input type="password" class="form-control" placeholder="Enter password" id="pwd" required name="password">
-											</div>
-											<div class="form-group custom-control custom-checkbox">
-												<input type="checkbox" class="custom-control-input" id="remember_me" name="remember_me">
-												<label class="custom-control-label" for="remember_me">Remember
-													me</label>
-											</div>
-											<button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
-										</form>
-									</div>
+										<!-- Modal body -->
+										<div class="modal-body">
+											<form action="login.php" method="post">
+												<div class="form-group">
+													<label for="email">Email:</label>
+													<input type="email" class="form-control" placeholder="Enter email" id="email" required name="email">
+												</div>
+												<div class="form-group">
+													<label for="pwd">Password:</label>
+													<input type="password" class="form-control" placeholder="Enter password" id="pwd" required name="password">
+												</div>
+												<div class="form-group custom-control custom-checkbox">
+													<input type="checkbox" class="custom-control-input" id="remember_me" name="remember_me">
+													<label class="custom-control-label" for="remember_me">Remember
+														me</label>
+												</div>
+												<button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+											</form>
+										</div>
 
-									<!-- Modal footer -->
-									<div class="modal-footer" style="justify-content: center;">
-										Not a member yet?<a href="#">Sign Up</a>
+										<!-- Modal footer -->
+										<div class="modal-footer" style="justify-content: center;">
+											Not a member yet?<a href="#">Sign Up</a>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<!-- End Login modal -->
+							<!-- End Login modal -->
 
-						<!-- Sign up modal -->
-						<div class="modal fade" id="signUpModal">
-							<div class="modal-dialog ">
-								<div class="modal-content">
+							<!-- Sign up modal -->
+							<div class="modal fade" id="signUpModal">
+								<div class="modal-dialog ">
+									<div class="modal-content">
 
-									<!-- Modal Header -->
-									<div class="modal-header">
-										<h4 class="modal-title">Đăng ký</h4>
-										<button type="button" class="close" data-dismiss="modal">&times;</button>
-									</div>
+										<!-- Modal Header -->
+										<div class="modal-header">
+											<h4 class="modal-title">Đăng ký</h4>
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+										</div>
 
-									<!-- Modal body -->
-									<div class="modal-body">
-										<form action="signUp.php" method="post" class="needs-validation" novalidate>
-											<div class="form-group">
-												<label for="name">Name:</label>
-												<input type="text" class="form-control" placeholder="Enter name" id="name" required name="name">
-												<div class="invalid-feedback">
-													Please enter your name
+										<!-- Modal body -->
+										<div class="modal-body">
+											<form action="signUp.php" method="post" class="needs-validation" novalidate>
+												<div class="form-group">
+													<label for="name">Name:</label>
+													<input type="text" class="form-control" placeholder="Enter name" id="name" required name="name">
+													<div class="invalid-feedback">
+														Please enter your name
+													</div>
 												</div>
-											</div>
-											<div class="form-group">
-												<label for="email">Email:</label>
-												<input type="email" class="form-control" placeholder="Enter email" id="email" required name="email">
-												<div class="invalid-feedback">
-													Please enter your email
+												<div class="form-group">
+													<label for="email">Email:</label>
+													<input type="email" class="form-control" placeholder="Enter email" id="email" required name="email">
+													<div class="invalid-feedback">
+														Please enter your email
+													</div>
 												</div>
-											</div>
-											<div class="form-group">
-												<label for="pwd">Password:</label>
-												<input type="password" class="form-control" placeholder="Enter password" id="pwd" required name="password">
-												<div class="invalid-feedback">
-													Please enter your password
+												<div class="form-group">
+													<label for="pwd">Password:</label>
+													<input type="password" class="form-control" placeholder="Enter password" id="pwd" required name="password">
+													<div class="invalid-feedback">
+														Please enter your password
+													</div>
 												</div>
-											</div>
-											<button type="submit" class="btn btn-primary w-100">Đăng ký</button>
-										</form>
-									</div>
+												<button type="submit" class="btn btn-primary w-100">Đăng ký</button>
+											</form>
+										</div>
 
-									<!-- Modal footer -->
-									<div class="modal-footer" style="justify-content: center;">
-										Are you a member?<a href="#">Login</a>
+										<!-- Modal footer -->
+										<div class="modal-footer" style="justify-content: center;">
+											Are you a member?<a href="#">Login</a>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<!-- End Sign up modal -->
+							<!-- End Sign up modal -->
 
+						<?php } ?>
 						<!-- End When user doesn't login -->
 					</div>
 

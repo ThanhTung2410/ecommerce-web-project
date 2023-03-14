@@ -1,6 +1,7 @@
 <?php
 
 require_once "connect.php";
+require_once "send_email.php";
 
 if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['password'])) {
 	die("Please provide enough information");

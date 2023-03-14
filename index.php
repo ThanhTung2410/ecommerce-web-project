@@ -139,7 +139,7 @@ $result = $conn->query($sql);
 
 										<!-- Modal body -->
 										<div class="modal-body">
-											<form action="signUp.php" method="post" class="needs-validation" novalidate>
+											<form action="sign_up.php" method="post" class="needs-validation" novalidate>
 												<div class="form-group">
 													<label for="name">Name:</label>
 													<input type="text" class="form-control" placeholder="Enter name" id="name" required name="name">

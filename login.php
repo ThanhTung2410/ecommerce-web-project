@@ -23,6 +23,16 @@ if ($result->num_rows == 1) {
 	$_SESSION['id'] = $row['id'];
 	$_SESSION['name'] = $row['name'];
 	$_SESSION['avatar'] = $row['avatar'];
+	if (isset($_POST['remember_me'])) {
+		$token = uniqid("user_");
+		setcookie('token', $token, time() + 1000 * 36000);
+		$sql = "UPDATE customer SET token = ? WHERE id = ?";
+		$stm = $conn->prepare($sql);
+		$stm->bind_param("si", $token, $row['id']);
+		if(!$stm->execute()) {
+			die($stm->error);
+		}
+	}
 } else {
 	die("Email or password invalid");
 }

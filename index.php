@@ -23,6 +23,25 @@
 
 <?php
 require_once "connect.php";
+
+if (isset($_COOKIE['token'])) {
+	$sql = "SELECT * FROM customer WHERE token = ?";
+	$stm = $conn->prepare($sql);
+	$stm->bind_param('s', $_COOKIE['token']);
+	if (!$stm->execute()) {
+		die($stm->error);
+	}
+	$result = $stm->get_result();
+	if ($result->num_rows == 1) {
+		$row = $result->fetch_assoc();
+		$_SESSION['id'] = $row['id'];
+		$_SESSION['name'] = $row['name'];
+		$_SESSION['avatar'] = $row['avatar'];
+	} else {
+		die("Token does not exist");
+	}
+}
+
 $sql = "SELECT * FROM product";
 $result = $conn->query($sql);
 ?>
